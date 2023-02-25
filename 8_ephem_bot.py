@@ -12,7 +12,7 @@
   бота отвечать, в каком созвездии сегодня находится планета.
 
 """
-import logging
+import logging, ephem
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -21,19 +21,12 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     filename='bot.log')
 
 
-PROXY = {
-    'proxy_url': 'socks5://t1.learn.python.ru:1080',
-    'urllib3_proxy_kwargs': {
-        'username': 'learn',
-        'password': 'python'
-    }
-}
 
 
 def greet_user(update, context):
     text = 'Вызван /start'
     print(text)
-    update.message.reply_text(text)
+    update.message.reply_text("О, привет!")
 
 
 def talk_to_me(update, context):
@@ -43,7 +36,7 @@ def talk_to_me(update, context):
 
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY, use_context=True)
+    mybot = Updater("API_KEY, use_context=True)
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
@@ -51,6 +44,14 @@ def main():
 
     mybot.start_polling()
     mybot.idle()
+
+
+
+def planet_pos(update, context):
+    date = input("Год, месяц, день: ")
+    
+
+
 
 
 if __name__ == "__main__":
