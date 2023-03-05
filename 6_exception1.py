@@ -10,15 +10,13 @@
     
 """
 
-def hello_user(msg):
-    try:
-        while True:
-            msg = input("Как дела?")
-            if msg == "Хорошо":
-                break
-            else:
-                print('Ответ неверный')
-    except KeyboardInterrupt:
-        print('Пока!')
-        break            
+def hello_user():
+    msg = ''
+    while msg != "Хорошо":
+        try:
+            msg = input('Как дела?')
+        except KeyboardInterrupt:
+            print('Пока!')
+                   
     
+hello_user()

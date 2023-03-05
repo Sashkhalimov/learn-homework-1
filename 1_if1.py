@@ -18,21 +18,20 @@
 def level(age):
     if age <0:
         return "Быть такого не может"
-    elif 1 <= age <= 2:
+    elif age <= 2:
         return "Привет, Лунтик!"
-    elif 3 <= age <= 6:
+    elif age <= 6:
         return "Вас водят в детский сад"
-    elif 7 <= age <= 18:
+    elif age <= 18:
         return "Вы - школьник"
-    elif 19 <= age <= 24:
+    elif age <= 24:
         return "Учись, студент"
-    elif 25 <= age <= 64:
+    elif age <= 64:
         return "Работа - не волк"
     elif age >= 65:
         return "Период дожития активирован"
 
+
 age = int(input("Сколько тебе годиков? "))
 result = level(age)
 print(result)            
-
-

@@ -16,7 +16,6 @@
 """
 
 def difference(string1, string2):
-
     if not isinstance(string1, str) or not isinstance(string2, str):
         return 0
     elif string1 == string2:
@@ -25,10 +24,8 @@ def difference(string1, string2):
         return 2
     elif string1 != string2 and string2 == "learn":
         return 3
-    
          
             
-
 print(difference(3, 2))
 print(difference("00123", "321"))
 print(difference("123", "1234"))

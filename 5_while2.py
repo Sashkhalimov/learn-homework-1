@@ -22,16 +22,17 @@ questions_and_answers = {
     'Какой язык программирования изучаешь?': 'Python',
 }
 
-def ask_user(answers_dict):
+def ask_user(msg):
     while True:
-        user_say = str.capitalize(input("Введите Ваш вопрос:"))
-            for key, value in questions_and_answers.items():
-                if key == user_say:
-                    print(value)
-                elif user_say == str.lower("Пока"):
-                    print('Ну пока')
-                    break
-                else:
-                    print("Я не знаю ответа на данный вопрос. Задай другой:")
+        user_say = input("Введите Ваш вопрос:").capitalize()
+            if user_say in questions_and_answers:
+                print(questions_and_answers[user_say])
+            elif user_say == "Пока":
+                print('Ну пока')
+                break
+            else:
+                print("Я не знаю ответа на данный вопрос. Задай другой:")
+
+ask_user(questions_and_answers)
          
            

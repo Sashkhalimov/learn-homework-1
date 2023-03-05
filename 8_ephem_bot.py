@@ -34,21 +34,43 @@ def talk_to_me(update, context):
     print(user_text)
     update.message.reply_text(text)
 
+def planet_pos(update, context):
+    planets = {
+        'Mercury': ephem.Mercury(),
+        'Venus': ephem.Venus(),
+        'Mars': ephem.Mars(),
+        'Jupiter': ephem.Jupiter(),
+        'Saturn': ephem.Saturn(),
+        'Neptune': ephem.Neptune()
+    }
+
+    user_text = update.message.text
+    planet_name = user_text.split(' ')
+    from datatime import date
+    now = date.today()
+    if planet_name in planets.keys():
+        planet_p = planets.get(planet_name)
+        planet_p.cumpute(now)
+        constellation = ephem.constellation()
+        return update.message.reply_text(planet_name)(constellation)
+    else:
+        return update.message.reply_text()
+    
+
+
 
 def main():
-    mybot = Updater("API_KEY, use_context=True)
+    mybot = Updater("API_KEY", use_context=True)
 
     dp = mybot.dispatcher
-    dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
-
+    dp.add_handler(CommandHandler('planet', planet_pos))
+  
+    logging.info("Бот запущен")
     mybot.start_polling()
     mybot.idle()
 
 
 
-def planet_pos(update, context):
-    date = input("Год, месяц, день: ")
     
 
 

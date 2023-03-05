@@ -30,9 +30,23 @@ products = [
     'items_sold': [343, 390, 238, 437, 214, 494, 441, 518, 212, 288, 272, 247]
      },
   ]
+general_sales = 0
+general_average = 0
+for product in products:
+    phone = product['product']
+    product_sales = product['items_sold']
+    items_sold_sum = sum(product_sales)
+    product_sales_average = int(items_sold_sum / len(product_sales))
+    
+    print(f'Суммарное количество продаж {phone}: {items_sold_sum}')
+    print(' ')
+    print(f'Среднее количество продаже {phone}: {product_sales_average}')
+    print(' ')
 
-phone_names = products[0]['product'], products[1]['product'], products[2]['product']
-phone_items_sold = products[0]['items_sold'], products[1]['items_sold'], products[2]['items_sold']
-print(phone_items_sold)
-print(len(products))
+    general_sales += items_sold_sum
+    general_average += general_sales / len(products)
 
+
+print(f'Суммарное количество продаж всех товаров: {general_sales}')
+print(' ')
+print(f'Среднее количество продаж всех товаров: {int(general_average)}')
