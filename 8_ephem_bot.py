@@ -14,6 +14,8 @@
 """
 import logging, ephem
 
+from datetime import datetime
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
@@ -29,43 +31,30 @@ def greet_user(update, context):
     update.message.reply_text("О, привет!")
 
 
-def talk_to_me(update, context):
-    user_text = update.message.text
-    print(user_text)
-    update.message.reply_text(text)
+
 
 def planet_pos(update, context):
-    planets = {
-        'Mercury': ephem.Mercury(),
-        'Venus': ephem.Venus(),
-        'Mars': ephem.Mars(),
-        'Jupiter': ephem.Jupiter(),
-        'Saturn': ephem.Saturn(),
-        'Neptune': ephem.Neptune()
-    }
+    user_text = update.message.text.split()
+    planet = getattr(ephem, user_text, None)(datetime.datetime.now())
+    constellation = ephem.constellation(planet)[1]
+    update.message.reply_text(constellation)
 
-    user_text = update.message.text
-    planet_name = user_text.split(' ')
-    from datatime import date
-    now = date.today()
-    if planet_name in planets.keys():
-        planet_p = planets.get(planet_name)
-        planet_p.cumpute(now)
-        constellation = ephem.constellation()
-        return update.message.reply_text(planet_name)(constellation)
-    else:
-        return update.message.reply_text()
-    
 
+def talk_to_me(update, context):
+   user_text = update.message.text
+   print(user_text)
+   update.message.reply_text(text)
 
 
 def main():
     mybot = Updater("API_KEY", use_context=True)
 
     dp = mybot.dispatcher
+    dp.add_handler(CommandHandler('start', greet_user))
     dp.add_handler(CommandHandler('planet', planet_pos))
+    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
   
-    logging.info("Бот запущен")
+    # logging.info("Бот запущен")
     mybot.start_polling()
     mybot.idle()
 
